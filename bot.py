@@ -1,3 +1,11 @@
+"""
+Made by NicknameKR
+You can use mine freely
+(Under the MIT License)
+
+Thanks for Using!
+If you need some help, please send dm to 사죄#9999.
+"""
 import discord
 from discord.ext import commands
 from discord_webhook import DiscordWebhook
@@ -13,12 +21,10 @@ async def on_ready():
     print('Made by Nicknamekr with ❤️')
 
 @bot.command(name="send")
-async def ssend(ctx, user: discord.User, *, text):
-    wh = await ctx.message.channel.create_webhook(name=".")
+async def send(ctx, user: discord.User, *, text):
+    webhook = await ctx.message.channel.create_webhook(name=user.id)
     await ctx.message.delete()
-    usr = await bot.fetch_user(user.id)
-    webhook = DiscordWebhook(url=wh.url, username=f'{usr.name}', content=f'{text}', avatar_url=f'{usr.display_avatar}')
-    webhook.execute()
-    await wh.delete()
+    DiscordWebhook(url=wh.url, username=f'{user.name}', content=f'{text}', avatar_url=f'{user.display_avatar}').execute()
+    await webhook.delete()
 
 bot.run(token)
